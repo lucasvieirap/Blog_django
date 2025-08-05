@@ -12,8 +12,8 @@ def posts_list(request):
             }
     )
 
-def post_detail(request, id):
-    post = Post.objects.get(id=id)
+def post_detail(request, year, month, day, slug):
+    post = Post.objects.get(slug=slug)
     return render(
             request,
             "blog/posts/detail.html",

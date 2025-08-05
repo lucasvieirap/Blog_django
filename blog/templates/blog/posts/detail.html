@@ -5,8 +5,8 @@
 {% block content %}
         <main>
                 <h1>{{ post.title }}</h1>
-                <p>{{ post.author }}</p>
+                <p>In: {{ post.created_at.date }}</p>
+                <p>By: {{ post.author }}</p>
                 <p>{{ post.body }}</p>
-                <p>Created at: {{ post.created_at }}</p>
         </main>
 {% endblock %}

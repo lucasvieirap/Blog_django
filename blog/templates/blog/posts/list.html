@@ -4,9 +4,11 @@
 {% endblock %}
 {% block content %}
         <main>
-                <h1>Hello, World</h1>
+                <h1> Post List </h1>
                 {% for post in posts %}
-                        <h2>{{ post.title }}</h2>
+                        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                        <p>By: {{ post.author }}</p>
+                        <p>In: {{ post.created_at.date }}</p>
                 {% endfor %}
         </main>
 {% endblock %}
