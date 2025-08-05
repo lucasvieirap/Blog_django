@@ -5,10 +5,16 @@
 {% block content %}
         <main>
                 <h1> Post List </h1>
-                {% for post in posts %}
+                {% for post in posts_page.object_list %}
                         <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-                        <p>By: {{ post.author }}</p>
+                        <p>By: {{ post.post.author }}</p>
                         <p>In: {{ post.created_at.date }}</p>
                 {% endfor %}
+                {% if posts_page.has_previous %}
+                        <a href="{% url 'blog:posts_list' %}?page_num={{ posts_page.previous_page_number }}">Previous Page</a>
+                {% endif %}
+                {% if posts_page.has_next %}
+                        <a href="{% url 'blog:posts_list' %}?page_num={{ posts_page.next_page_number }}">Next Page </a>
+                {% endif %}
         </main>
 {% endblock %}
