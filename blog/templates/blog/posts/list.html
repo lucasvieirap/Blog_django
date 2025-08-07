@@ -7,7 +7,7 @@
                 <h1> Post List </h1>
                 {% for post in posts_page.object_list %}
                         <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-                        <p>By: {{ post.post.author }}</p>
+                        <p>By: {{ post.author }}</p>
                         <p>In: {{ post.created_at.date }}</p>
                 {% endfor %}
                 {% if posts_page.has_previous %}

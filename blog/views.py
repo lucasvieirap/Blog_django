@@ -1,6 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from django.urls import reverse
 from django.core.paginator import Paginator
-from .models import Post
+from .models import Post, Comment
+from .forms import CommentForm
 
 # Create your views here.
 # def posts_list (request, page_num):
@@ -22,10 +24,20 @@ def posts_list(request):
 
 def post_detail(request, year, month, day, slug):
     post = Post.objects.get(slug=slug)
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            author = form.cleaned_data['author']
+            body  = form.cleaned_data['body']
+            comment = Comment(author=author, body=body, post=post)
+            comment.save()
+            reverse('blog:post_detail', args=[year, month, day, slug])
     return render(
             request,
             "blog/posts/detail.html",
             {
                 'post': post,
+                'form': form,
             }
     )

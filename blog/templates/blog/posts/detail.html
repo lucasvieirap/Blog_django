@@ -8,5 +8,10 @@
                 <p>In: {{ post.created_at.date }}</p>
                 <p>By: {{ post.author }}</p>
                 <p>{{ post.body }}</p>
+                <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Submit">
+                </form>
         </main>
 {% endblock %}
