@@ -4,6 +4,7 @@
 {% endblock %}
 {% block content %}
         <main>
+                <p>{{ post.tags.all|join:', ' }}</p>
                 <h1>{{ post.title }}</h1>
                 <p>In: {{ post.created_at.date }}</p>
                 <p>By: {{ post.author }}</p>

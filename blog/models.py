@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify, Truncator
 
+from taggit.managers import TaggableManager
+
 # Create your models here.
 class Post(models.Model):
     author = models.CharField(max_length=60)
@@ -13,6 +15,7 @@ class Post(models.Model):
     slug = models.SlugField(default=slugify(title), null=False)
 
     objects = models.Manager()
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title
