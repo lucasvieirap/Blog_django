@@ -23,8 +23,10 @@ def posts_list(request):
     )
 
 def post_detail(request, year, month, day, slug):
+
     post = Post.objects.get(slug=slug)
     form = CommentForm()
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
