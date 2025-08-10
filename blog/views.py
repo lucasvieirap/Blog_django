@@ -9,7 +9,10 @@ from .forms import CommentForm
 def posts_list(request):
 
     ELEMENT_PER_PAGE = 3
+    tags = request.GET.get('tags', '')
     paginator = Paginator(Post.objects.all(), ELEMENT_PER_PAGE)
+    if tags:
+        paginator = Paginator(Post.objects.all().filter(tags__name__contains=tags), ELEMENT_PER_PAGE)
     page_num = request.GET.get('page_num', 1)
     posts = paginator.page(page_num)
 
@@ -19,6 +22,7 @@ def posts_list(request):
             {
                 'posts_page': posts,
                 'page_num': page_num,
+                'tags': tags,
             }
     )
 
