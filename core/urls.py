@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 
-from blog.sitemaps import BlogSitemap
+from blog.sitemaps import BlogSitemap, TagSitemap
 from blog.feeds import BlogFeed
 
 urlpatterns = [
@@ -27,7 +27,7 @@ urlpatterns = [
     path(
         "sitemap.xml",
         sitemap,
-        {"sitemaps": {'blog': BlogSitemap}},
+        {"sitemaps": {'blog': BlogSitemap, 'tag': TagSitemap}},
         name="django.contrib.sitemaps.views.sitemap",
     ),
     path('feed/latest', BlogFeed()),
