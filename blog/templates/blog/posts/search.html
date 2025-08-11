@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+{% block title %}
+        Search
+{% endblock %}
+{% block content %}
+        <form action="" method="GET">
+                {{ form.as_p }}
+                <input type="submit" value="Search" >
+        </form>
+        {% for post in results %}
+                <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                {% for tag in post.tags.all %}
+                        <a href="{% url 'blog:posts_list' %}?tags={{ tag.name }}">#{{ tag.name }}</a>
+                {% endfor %}
+                <p>By: {{ post.author }}</p>
+                <p>In: {{ post.created_at.date }}</p>
+        {% endfor %}
+{% endblock %}

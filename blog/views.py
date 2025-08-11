@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.paginator import Paginator
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from .models import Post, Comment
-from .forms import CommentForm
+from .forms import CommentForm, SearchForm
 
 # Create your views here.
 # def posts_list (request, page_num):
@@ -45,5 +46,26 @@ def post_detail(request, year, month, day, slug):
             {
                 'post': post,
                 'form': form,
+            }
+    )
+
+def search_view(request):
+
+    form = SearchForm()
+    results = None
+    query = SearchQuery(request.GET.get('query'))
+    if query:
+        search=SearchVector('title', 'author', 'body', 'tags__name')
+        results = Post.objects.annotate(
+            search=search,
+            rank=SearchRank(search, query),
+        ).filter(search=query).order_by('-rank')
+
+    return render(
+            request,
+            'blog/posts/search.html',
+            {
+                'form': form,
+                'results': results,
             }
     )
